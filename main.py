@@ -27,12 +27,14 @@ guessed_states = []
 game_is_on = True
 total_states = len(all_states)
 while game_is_on:
-    answer_state = screen.textinput(title=f"{len(guessed_states)}/50 States Correct", prompt="What's another state's name?").title()
+    answer_state = screen.textinput(title=f"{len(guessed_states)}/50 States Correct",
+                                    prompt="What's another state's name?").title()
     if answer_state == "Exit":
-        missing_states = []
-        for state in all_states:
-            if state not in guessed_states:
-                missing_states.append(state)
+        # Added list comprehension to clean up code
+        missing_states = [state for state in all_states if state not in guessed_states]
+        # for state in all_states:
+        #     if state not in guessed_states:
+        #         missing_states.append(state)
         # print(missing_states)
         new_data = pandas.DataFrame(missing_states)
         new_data.to_csv("states_to_learn.csv")
@@ -61,10 +63,5 @@ while game_is_on:
         # t.write(state_data.x.item())
         # t.write(state_data.y.item())
         # t.write(state_data.state.item())
-
-
-
-
-
 
 screen.exitonclick()
